@@ -29,6 +29,16 @@ javascript: (function () {
         if (ev.originalEvent.dataTransfer.files && ev.originalEvent.dataTransfer.files.length > 0) {
             const file = ev.originalEvent.dataTransfer.files[0];
             console.log('file', file);
+
+            const reader = new FileReader();
+            reader.onload = event => {
+                const image = new Image();
+                image.onload = () => {
+                    console.log('current img: ', image.width, image.height);
+                };
+                image.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
           }
     });
  }());
